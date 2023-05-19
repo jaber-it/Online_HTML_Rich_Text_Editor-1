@@ -176,7 +176,7 @@
                     <option value="new">New file</option>
                     <option value="txt">Save as txt</option>
                     <option value="pdf">Save as pdf</option>
-                    <option value="pdf">Save as sql</option>
+                    <option value="sql">Save as sql</option>
                 </select>
                 <select onchange="formatDoc('formatBlock', this.value); this.selectedIndex=0;">
                     <option value="" selected="" hidden="" disabled="">Format</option>
@@ -311,8 +311,13 @@
                 link.click();
             } else if (value === 'pdf') {
                 html2pdf(content).save(filename.value);
-            } else if (value === 'sql') {
+             } else if (value === 'sql') {
+                const blob = new Blob([content.innerText])
+                const url = URL.createObjectURL(blob)
+                const link = document.createElement('a');
+                link.href = url;
                 link.download = `${filename.value}.sql`;
+                link.click();
             }
 
         }
